@@ -27,5 +27,5 @@ validator :: PlutusV2.Validator
 validator = PlutusV2.mkValidatorScript $$(PlutusTx.compile [|| wrappedVal ||])
 
 saveHM :: IO ()
-saveHM = writeValidatorToFile "./Homework1.plutus" validator
+saveHM = writeValidatorToFile "./Homework1B.plutus" validator
 
