@@ -14,7 +14,9 @@ import           Plutus.V2.Ledger.Contexts (txSignedBy)
 import           Plutus.V1.Ledger.Interval (before, after)
 import           PlutusTx             (compile, unstableMakeIsData)
 import           PlutusTx.Prelude     (Bool, traceIfFalse, ($), (&&), (||))
-import           Utilities            (wrap)
+import           Utilities            (wrapValidator)
+import           PlutusTx.Prelude     (Bool (..))
+import           Utilities            (wrapValidator)
 
 ---------------------------------------------------------------------------------------------------
 ----------------------------------- ON-CHAIN / VALIDATOR ------------------------------------------
@@ -57,7 +59,7 @@ mkVestingValidator dat () ctx = traceIfFalse "deadline not reached" $
 
 {-# INLINABLE  mkWrappedVestingValidator #-}
 mkWrappedVestingValidator :: BuiltinData -> BuiltinData -> BuiltinData -> ()
-mkWrappedVestingValidator = wrap mkVestingValidator
+mkWrappedVestingValidator = wrapValidator mkVestingValidator
 
 validator :: Validator
 validator = mkValidatorScript $$(compile [|| mkWrappedVestingValidator ||])

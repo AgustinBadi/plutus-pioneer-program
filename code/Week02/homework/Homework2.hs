@@ -12,7 +12,10 @@ import qualified Plutus.V2.Ledger.Api as PlutusV2
 import           PlutusTx             (compile, unstableMakeIsData)
 import           PlutusTx.Prelude     (Bool, ($), (/=), BuiltinData, traceIfFalse)
 import           Prelude              (IO)
-import           Utilities            (wrap, writeValidatorToFile)
+import           Utilities            (wrapValidator, writeValidatorToFile)
+import           PlutusTx             (unstableMakeIsData)
+import           PlutusTx.Prelude     (Bool, BuiltinData)
+import           Prelude              (undefined)
 
 
 ---------------------------------------------------------------------------------------------------
@@ -31,7 +34,7 @@ mkValidator :: () -> MyRedeemer -> PlutusV2.ScriptContext -> Bool
 mkValidator _ r _ =  traceIfFalse "MyRedeemer flags are equal truthvalues" $ (flag1 r /= flag2 r) 
 
 wrappedVal :: BuiltinData -> BuiltinData -> BuiltinData -> ()
-wrappedVal = wrap mkValidator
+wrappedVal = wrapValidator mkValidator
 
 validator :: PlutusV2.Validator
 validator = PlutusV2.mkValidatorScript $$(PlutusTx.compile [|| wrappedVal ||])
