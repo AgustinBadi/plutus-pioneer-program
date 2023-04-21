@@ -15,6 +15,7 @@ import           Plutus.V2.Ledger.Contexts (txSignedBy)
 import           PlutusTx             (applyCode, compile, liftCode, makeLift)
 import           PlutusTx.Prelude     (Bool (False), (.), traceIfFalse, (&&), ($))
 import           PlutusTx             (applyCode, compile, liftCode)
+import           Prelude              (String)
 import           Utilities            (wrapValidator)
 
 
